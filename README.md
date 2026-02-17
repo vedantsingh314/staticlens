@@ -1,11 +1,10 @@
 
-                                                                  StaticLens
 
 StaticLens is a multi-language static code analysis tool designed to evaluate code quality and structural complexity across software repositories. It analyzes source files using established software engineering metrics and presents results through an interactive web-based dashboard.
 
 ---
 
- Live Demo
+ **Live Demo**
 
 Access the deployed application here:
 
@@ -13,7 +12,7 @@ Access the deployed application here:
 
 ---
 
- Overview
+ **Overview**
 
 StaticLens supports static analysis for:
 
@@ -32,7 +31,7 @@ The tool supports both individual file uploads and full GitHub repository analys
 
 ---
 
- Features
+ **Features**
 
 * Multi-language parsing powered by Tree-sitter
 * Per-function cyclomatic complexity calculation
@@ -55,7 +54,7 @@ The tool supports both individual file uploads and full GitHub repository analys
 
 ---
 
- Architecture
+**Architecture**
 
 StaticLens follows a modular architecture:
 
@@ -81,10 +80,9 @@ StaticLens follows a modular architecture:
 * Export functionality
 ---
 
- Future Enhancements
+ **Future Enhancements**
 
 * AI-assisted metric interpretation (Version 3)
-* Control-flow graph-based complexity refinement
 * Expanded language support
 * Enhanced visualization and trend analysis
 
