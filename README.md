@@ -1,10 +1,17 @@
 
-
- StaticLens
+                                                                  StaticLens
 
 StaticLens is a multi-language static code analysis tool designed to evaluate code quality and structural complexity across software repositories. It analyzes source files using established software engineering metrics and presents results through an interactive web-based dashboard.
 
+---
 
+ Live Demo
+
+Access the deployed application here:
+
+👉 [https://staticlens.streamlit.app/](https://staticlens.streamlit.app/)
+
+---
 
  Overview
 
@@ -29,7 +36,12 @@ The tool supports both individual file uploads and full GitHub repository analys
 
 * Multi-language parsing powered by Tree-sitter
 * Per-function cyclomatic complexity calculation
-* Halstead metrics (volume, difficulty, effort, estimated defects)
+* Halstead metrics:
+
+  * Volume
+  * Difficulty
+  * Effort
+  * Estimated defects
 * Object-oriented structural analysis:
 
   * Number of classes
@@ -54,7 +66,7 @@ StaticLens follows a modular architecture:
 
  Metric Engine
 
-* Central MetricManager executes registered metric modules
+* Central `MetricManager` executes registered metric modules
 
  Metrics Implemented
 
@@ -67,11 +79,12 @@ StaticLens follows a modular architecture:
 * Built using Streamlit
 * Dashboard visualization
 * Export functionality
+---
 
  Future Enhancements
 
 * AI-assisted metric interpretation (Version 3)
-* Control-flow graph based complexity refinement
+* Control-flow graph-based complexity refinement
 * Expanded language support
 * Enhanced visualization and trend analysis
 

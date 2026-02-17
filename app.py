@@ -279,12 +279,12 @@ def render_charts(frame: pd.DataFrame) -> None:
     ranked["rank"] = ranked.index + 1
 
     with left:
-        st.markdown("<div class='glass-panel'><b>Cyclomatic Trend (Top 50)</b></div>", unsafe_allow_html=True)
+        st.markdown("<div class='glass-panel'><b>Cyclomatic Trend (All Files)</b></div>", unsafe_allow_html=True)
         line = (
-            alt.Chart(ranked.head(DISPLAY_FILE_LIMIT))
+            alt.Chart(ranked)
             .mark_line(color="#2dd4bf", strokeWidth=2.6, point=True)
             .encode(
-                x=alt.X("rank:Q", title="Risk Rank"),
+                x=alt.X("rank:Q", title="Files"),
                 y=alt.Y("cyclomatic_avg:Q", title="Average Cyclomatic"),
                 tooltip=["rank", "file", "language", "cyclomatic_avg"],
             )
@@ -293,12 +293,12 @@ def render_charts(frame: pd.DataFrame) -> None:
         st.altair_chart(line, use_container_width=True)
 
     with right:
-        st.markdown("<div class='glass-panel'><b>Halstead Effort Trend (Top 50)</b></div>", unsafe_allow_html=True)
+        st.markdown("<div class='glass-panel'><b>Halstead Effort Trend (All Files)</b></div>", unsafe_allow_html=True)
         line = (
-            alt.Chart(ranked.head(DISPLAY_FILE_LIMIT))
+            alt.Chart(ranked)
             .mark_line(color="#38bdf8", strokeWidth=2.6, point=True)
             .encode(
-                x=alt.X("rank:Q", title="Risk Rank"),
+                x=alt.X("rank:Q", title="Files"),
                 y=alt.Y("halstead_effort:Q", title="Halstead Effort"),
                 tooltip=["rank", "file", "language", "halstead_effort"],
             )
@@ -329,7 +329,7 @@ def render_dashboard(results: list[dict[str, Any]], scope_name: str) -> None:
     render_charts(frame)
 
     st.caption(
-        f"Showing up to {DISPLAY_FILE_LIMIT} files in UI for readability. Download Full JSON for complete report."
+        f"Trend charts include all files. Metric tables are capped at top {DISPLAY_FILE_LIMIT} files for readability. Download Full JSON for complete report."
     )
 
     search = st.text_input(
