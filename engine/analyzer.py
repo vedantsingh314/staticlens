@@ -46,7 +46,7 @@ def print_tree(node, indent=0):
     for child in node.children:
         print_tree(child, indent + 1)
 
-def analyzer(file_path: str):
+def analyzer(file_path: str, base_path: str = None):
     lang = detect_language(file_path)
 
     if not lang:
@@ -62,8 +62,9 @@ def analyzer(file_path: str):
     try:
         tree = parser(file_path)
     except Exception as e:
+        relative_path = os.path.relpath(file_path, base_path) if base_path else file_path
         return {
-            "file": file_path,
+            "file": relative_path,
             "language": lang,
             "error": f"Parsing failed: {str(e)}"
         }
@@ -71,14 +72,16 @@ def analyzer(file_path: str):
     try:
         results = MetricManager.run_all(tree, file_path, lang)
     except Exception as e:
+        relative_path = os.path.relpath(file_path, base_path) if base_path else file_path
         return {
-            "file": file_path,
+            "file": relative_path,
             "language": lang,
             "error": f"Metric calculation failed: {str(e)}"
         }
 
+    relative_path = os.path.relpath(file_path, base_path) if base_path else file_path
     return {
-        "file": file_path,
+        "file": relative_path,
         "language": lang,
         "metrics": results
     }
@@ -86,7 +89,7 @@ def analyzer(file_path: str):
 
 
 
-def analyze_files(files, progress_callback=None):
+def analyze_files(files, base_path: str = None, progress_callback=None):
    
     results = []
     total = len(files)
@@ -95,7 +98,7 @@ def analyze_files(files, progress_callback=None):
         if progress_callback:
             progress_callback(i, total, file_path)
         
-        result = analyzer(file_path)
+        result = analyzer(file_path, base_path=base_path)
         if result:
             results.append(result)
     
@@ -110,7 +113,7 @@ def analyze_directory(root_path: str, progress_callback=None):
     if progress_callback:
         progress_callback(f"Scanned {len(files)} supported files")
 
-    results = analyze_files(files)
+    results = analyze_files(files, base_path=root_path, progress_callback=progress_callback)
     return {
         "root_path": root_path,
         "total_files_scanned": len(files),
